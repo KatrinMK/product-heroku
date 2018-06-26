@@ -9,7 +9,7 @@ const checkAuth = require('./api/middlewares/middlewares');
 app.use(express.json());
 app.use(express.urlencoded());
 
-app.use('/products', checkAuth, routerProducts);
+app.use('/products', routerProducts);
 app.use('/order', routerOrder);
 app.use('/user', routerUser);
 
