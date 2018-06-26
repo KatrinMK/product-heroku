@@ -5,6 +5,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const Social = require('../models/socialUser');
+const host = require('../../config/server')
 // Use the GoogleStrategy within Passport.
 //   Strategies in passport require a `verify` function, which accept
 //   credentials (in this case, a token, tokenSecret, and Google profile), and
@@ -12,9 +13,9 @@ const Social = require('../models/socialUser');
 
 let userGoogle = () => {
     passport.use(new GoogleStrategy({
-        clientID: '702661113263-qdo9qp1i0nfcod634e11kfpr3ik50b29',
+        clientID: '702661113263-qdo9qp1i0nfcod634e11kfpr3ik50b29.apps.googleusercontent.com',
         clientSecret: 'y6biAVpChoucYls-qhOCT1XI',
-        callbackURL: "http://localhost:3080/user/login/google/callback"
+        callbackURL: host.host+"/user/login/google/callback"
     },
         (accessToken, refreshToken, profile, done) => {
             console.log('check profile', profile);

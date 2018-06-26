@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook').Strategy;
 const router = express.Router();
-
+const host = require('../../config/server')
 
 
 const User = require('../models/user')
@@ -11,7 +11,7 @@ const User = require('../models/user')
 let userFacebook = () => passport.use(new FacebookStrategy({
     clientID: 269637450266979,
     clientSecret: '3ca6f8a5db1431803fd19997efdd2304',
-    callbackURL: "http://localhost:3080/user/login/facebook/callback"
+    callbackURL: host.host+"/user/login/facebook/callback"
   },
   (accessToken, refreshToken, profile, done) => {
       console.log('profile', profile);

@@ -6,6 +6,7 @@ const jsonwebtoken = require('jsonwebtoken');
 const passport = require('passport');
 const userFacebook = require('./facebook');
 const userGoogle = require('./google');
+const host = require('../../config/server')
 // const Social = require('../models/socialUser')
 
 userFacebook();
@@ -60,7 +61,7 @@ router.get('/login/facebook', passport.authenticate('facebook', {scope: 'profile
 router.get('/login/facebook/callback',  (req, res) => {res.send("you are welcome at Facebook!!!")})
 
 router.get('/login/google', passport.authenticate('google', {scope: 'profile'}));
-router.get('/login/google/callback',  (req, res) => {res.redirect("http://localhost:3080/products")})
+router.get('/login/google/callback',  (req, res) => {res.redirect(host.host+"/products")})
 
 router.get('/', function(req, res, next){
     User
