@@ -58,7 +58,7 @@ router.post('/signup', function (req, res, next) {
 })
 
 router.get('/login/facebook', passport.authenticate('facebook'));
-router.get('/login/facebook/callback',  (req, res) => {res.send("you are welcome at Facebook!!!")})
+router.get('/login/facebook/callback',  (req, res) => {res.redirect(host.host+"/products")})
 
 router.get('/login/google', passport.authenticate('google', {scope: 'profile'}));
 router.get('/login/google/callback',  (req, res) => {res.redirect(host.host+"/products")})
