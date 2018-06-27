@@ -3,8 +3,8 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook').Strategy;
 const router = express.Router();
-const host = require('../../config/server')
-
+const host = require('../../config/server');
+const Social = require('../models/socialUser');
 
 const User = require('../models/user')
 
@@ -17,17 +17,22 @@ let userFacebook = () => passport.use(new FacebookStrategy({
       console.log('profile', profile);
       let data = profile._json();
 
-      User.findOne({email: data.email})
+      Social.findOne({id: data.id})
           .exec()
-          .then(user =>  {
-              if(!user){
-                  const user = new User({
-                      _id: data.id,
-                      email: data.email
-                  }) 
-              }
-          })
-          .catch()
+          .then(user => {
+            if (!user) {
+                const newUser = new Social({
+                    id: data.id,
+                    displayName: data.displayName,
+                    provider: data.provider
+                });
+                newUser.save();
+                done(null, newUser);
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        })
 
 
     // User.findOrCreate(email, function(err, user) {
